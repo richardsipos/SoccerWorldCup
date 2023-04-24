@@ -1,0 +1,174 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Navbar Customization */
+
+nav{
+    background-color: #60B922;
+
+    #addLeftBorder{
+        border-left: 10px solid white;
+        padding-left: 30px;
+        border-right: 10px solid white;
+        padding-right: 30px;
+        border-radius: 50%;
+    }
+}
+
+footer{
+    background-color: #60B922;
+    margin-top:70px;
+
+    span{
+        color:white;
+        font-weight: 500;
+    }
+    ul>li{
+        color:white;
+        font-weight: 500;
+    }
+}
+
+
+
+
+/* Body Customization */
+body{
+    min-height: 100vh;
+    // background-color: antiquewhite;
+    background-color: white;
+
+    .mainPage{
+
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 2%;
+        background-color: white;
+        .container{
+            gap: 25px;
+            padding:3%;
+            border-radius: 10%;
+            background-color: #60B922;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color:black;
+            font-weight: 200;
+
+            .title{
+                font-size: 2rem;
+                font-weight: 700;
+            }
+            .description{
+                font-size: 0.9rem;
+                font-weight: 400;
+                background-color: white;
+                border:3px solid black;
+                border-radius: 10px;
+                padding: 4%;
+            }
+        }
+    }
+
+    .csapatokPage{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .container{
+
+            .title{
+                margin: 1%;
+                padding: 5%;
+                background-color: #cce6b9;
+                font-size: 4rem;
+                font-weight: 800;
+                text-align: center;
+            }
+
+            .csapatok{
+                text-align: center;
+            }
+        }
+    }
+
+    .merkozesekPage{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 60px;
+        .container{
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+
+            .adminFunctions{
+                background-color: red;
+            }
+
+
+
+            .allGames{
+                h1{
+                    font-size: 2rem;
+                }
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #60B922;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding: 20px;
+
+
+                .oneGame{
+                    margin-top: 25px;
+                    margin-bottom: 25px;
+                    gap:30px;
+
+
+
+                    border: 2px solid gray;
+
+                    // border-radius: 10px;
+                    font-size: 1rem;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: row;
+
+                    img{
+                        width: 250px;
+                        height: 180px;
+                    }
+
+
+                    .teamLeft{
+                        padding: 20px;
+                        //background-color: #60B922;
+                        h1{
+                            color:black;
+                            font-size: 1.5rem;
+                        }
+                    }
+
+                    .vs{
+                        padding: 20px;
+                    }
+
+                    .teamRight{
+                        padding: 20px;
+                        //background-color: #60B922;
+                        h1{
+                            color:black;
+                            font-size: 1.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
