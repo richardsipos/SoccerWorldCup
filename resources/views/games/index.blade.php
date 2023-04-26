@@ -4,6 +4,11 @@
             <div class="adminFunctions">
                 <p>ide kerulnek az admin funkciok, csak az admin lattja ezt.</p>
             </div>
+            @if (Session::get('game-created'))
+                <div class="w-full text-center bg-green-700 mb-4 rounded-md text-white">
+                    A bejegyzés sikeresen létrejött!
+                </div>
+            @endif
             <div class="allGames">
                 <h1>Folyamatban levő mérkőzések</h1>
 
@@ -89,6 +94,8 @@
 
 
     </div>
+
+
 
     {{-- <h1>Itt kene megjelenjen</h1> --}}
 

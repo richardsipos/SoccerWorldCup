@@ -11,7 +11,7 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
-        'start ',
+        'start',
         'finished',
 
         'hometeams_id',

@@ -3,7 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Game;
+use App\Models\Team;
+use App\Models\Player;
 use Illuminate\Http\Request;
+
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -20,7 +28,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $this -> authorize('create', Event::class);
+        $players = Player::all();
+        return view('games.index', ['players' => $players]);
     }
 
     /**
@@ -28,7 +38,19 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this -> authorize('create', Event::class);
+
+        $validated = $request -> validate(
+            ['minute' => 'required|integer|min:0|max:90',
+            'type' => 'required|string',
+            'player_id' => 'integer|exists:players,id',
+        ]);
+
+        $event = Event::create($validated);
+        $event -> categories() -> sync($validated['players'] ?? []);
+
+        Session::flash('event-created');
+        return to_route('games.index');
     }
 
     /**

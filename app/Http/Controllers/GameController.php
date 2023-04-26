@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Event;
 use App\Models\Team;
+use App\Models\Player;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class GameController extends Controller
 {
@@ -43,7 +48,10 @@ class GameController extends Controller
      */
     public function create()
     {
-        //
+        $this -> authorize('create',Game::class);
+        $teams = Team::all();
+        return view('games.create', ['teams' => $teams ]);
+
     }
 
     /**
@@ -51,8 +59,22 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this -> authorize('create',Game::class);
+
+        $validated = $request -> validate(
+            ['hometeams_id' => 'required|distinct',
+            'awayteams_id' => 'required|distinct|different:hometeams_id',
+            'start' => 'required|after:today',
+        ]);
+
+        $game = Game::create($validated);
+
+
+        Session::flash('game-created');
+        return to_route('games.index');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -65,25 +87,23 @@ class GameController extends Controller
         $eventsBothTeams = Game::eventsHomeAndAwayTeam($game);
         //dd($eventsHomeTeam);
 
+        $players = Player::all();
         return view('games.show', [
             'game' => $game,
             'gameScores' => $gameScores,
             'eventsBothTeams' => $eventsBothTeams,
+            'players' => $players
             // 'eventsAwayTeam' => $eventsAwayTeam
         ]);
     }
-    // public function show(Post $post)
-    // {
-    //     $categories = Category::all();
-    //     return view('posts.show', ['post' => $post, 'categories' => $categories ]);
-    // }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Game $game)
     {
-        //
+        $teams = Team::all();
+        return view('games.edit', ['game' => $game,'teams' => $teams]);//, 'teams' => $categories ]);
     }
 
     /**
@@ -91,7 +111,20 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //
+        $this -> authorize('update',Game::class);
+
+        $validated = $request -> validate(
+            ['hometeams_id' => 'required|distinct',
+            'awayteams_id' => 'required|distinct|different:hometeams_id',
+            'start' => 'required|after:today',
+        ]);
+
+        $game -> update($validated);
+
+
+        Session::flash('game-update');
+        return to_route('games.index');
+
     }
 
     /**
@@ -99,6 +132,8 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        //
+        $this -> authorize('delete', Game::class);
+        $game -> delete();
+        return to_route('games.index');
     }
 }

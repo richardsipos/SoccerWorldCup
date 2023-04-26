@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 bg-[#60B922]">
+<nav x-data="{ open: false }" class=" border-b border-gray-100 bg-[#60B922]">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -147,29 +147,3 @@
     </div>
 </nav>
 
-{{-- <nav class="row w-full">
-    <div class="flex  flex-  wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="flex items-center">
-            <img src="/images/soccer_ball2.svg" class="h-8 mr-3"/>
-        </a>
-        <div class="hidden w-full md:block md:w-auto">
-            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0">
-                <li>
-                    <a href="/merkozesek" class="block py-2 pl-3 pr-4 text-white  text-white rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500">Mérközések</a>
-                </li>
-                <li>
-                    <a href="/csapatok" class="block py-2 pl-3 pr-4 text-white  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Csapatok</a>
-                </li>
-                <li>
-                    <a href="/tabella" class="block py-2 pl-3 pr-4 text-white  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Tabella</a>
-                </li>
-                <li>
-                    <a href="/kedvencek" class="block py-2 pl-3 pr-4 text-white  md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500">Kedvenceim</a>
-                </li>
-                <li>
-                    <a href="#" id="addLeftBorder" class="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Bejelentkezés</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-  </nav> --}}

@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
 
             //foreign keys
-            $table->foreignId('hometeams_id')->constrained('teams');//->nullable();//->nullable;
-            $table->foreignId('awayteams_id')->constrained('teams');//->nullable();//->nullable;
+
+            //cascadeOnDelete() sok helyen a torlesnek
+            $table->foreignId('hometeams_id')->constrained('teams')->onDelete('cascade');//->nullable();//->nullable;
+            $table->foreignId('awayteams_id')->constrained('teams')->onDelete('cascade');//->nullable();//->nullable;
             $table->datetime('start');
             $table->boolean('finished')->default(false);
             $table->timestamps();

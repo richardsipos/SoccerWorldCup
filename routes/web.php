@@ -24,33 +24,10 @@ Route::get('/', function () {
 })->name('/');
 
 
-// Route::get('/merkozesek',function(){
-//     return view('games.index');
-// });
 
-//Route::resource('merkozesek', GameController::class);
 Route::resource('games', GameController::class);
 Route::resource('teams', TeamController::class);
-
-
-
-// Route::get('/csapatok',function(){
-//     return view('teams.index');
-// });
-// Route::resource('csapatok', TeamController::class);
-
-
-// Route::get('/tabella',function(){
-//     return view('leaderboards.index');
-// });
-// Route::resource('tabella', TeamController::class);
-
-
-// Route::get('/kedvenceim',function(){
-//     return view('favorites.index');
-// });
-// Route::resource('kedvenceim', TeamController::class);
-
+Route::resource('events', EventController::class);
 
 
 

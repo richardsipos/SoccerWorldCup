@@ -13,7 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        'app\Models\Event' => 'App\Policies\EventPolicy',
+        'app\Models\Game' => 'App\Policies\GamePolicy',
     ];
 
     /**
@@ -21,6 +22,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Gate::define('create-game-ability', function($user, $post){
+        //    return $user->is_admin;
+        //});
     }
 }
