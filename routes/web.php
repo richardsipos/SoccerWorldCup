@@ -27,8 +27,10 @@ Route::get('/', function () {
 
 Route::resource('games', GameController::class);
 Route::resource('teams', TeamController::class);
-Route::resource('events', EventController::class);
-
+//Route::resource('/games/{game_id}', EventController::class);
+// Route::get('/games/{game}', [EventController::class, 'create'])->name('addEvent.store');
+// Route::get('/games/{game}', [GameController::class, 'store'])->name('games.show');
+// Route::get('/games/{game}', [EventController::class, 'store'])->name('addEvent.store');
 
 
 

@@ -3,10 +3,8 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Event;
-use Illuminate\Support\Facades\Auth;
 
-class EventPolicy
+class TeamPolicy
 {
     /**
      * Create a new policy instance.
@@ -16,15 +14,16 @@ class EventPolicy
         //
     }
 
-    // public function delete(User $user, Event $event){
-    //     return $user -> is_admin;
-    // }
-
-    public function delete($user){
+    public function create($user){
+        //return Auth::check();
         return $user -> is_admin;
     }
 
-    public function create($user){
+    public function update($user){
+        return $user -> is_admin;
+    }
+
+    public function delete($user){
         return $user -> is_admin;
     }
 }

@@ -18,15 +18,16 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Game $game)
     {
         //
+        return view('games.index');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Game $game)
     {
         $this -> authorize('create', Event::class);
         $players = Player::all();
@@ -36,18 +37,26 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,Game $game)
     {
+
+        dd($game);
         $this -> authorize('create', Event::class);
 
+        //itt a baj, bele kell irjam a gameId-t...de hogyan?
         $validated = $request -> validate(
             ['minute' => 'required|integer|min:0|max:90',
             'type' => 'required|string',
             'player_id' => 'integer|exists:players,id',
         ]);
 
+        $validated['game_id']=$game->id;
+
         $event = Event::create($validated);
-        $event -> categories() -> sync($validated['players'] ?? []);
+        // $event -> categories() -> sync($validated['players'] ?? []);
+
+
+        
 
         Session::flash('event-created');
         return to_route('games.index');

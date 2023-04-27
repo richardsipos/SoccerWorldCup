@@ -12,13 +12,15 @@
                 @forelse($teams as $team)
 
                     <div class="p-2 border-2 border-green-600 csapatok">
-                        @if (isset($team->img))
-                            <img src={{$team->img}} alt="">
+
+                        @if ($team -> image !== null)
+                            <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
                         @else
-                            <img src="/images/wcIMG.jpg" alt="">
+                            <img src="/wcIMG.jpg" alt="">
                         @endif
                         <h1>{{$team->name}}</h1>
                         <h2>{{$team->shortname}}
+                            <a href="{{ route('teams.show', ['team' => $team] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Csapatrészletezés</a>
                     </div>
 
                 @empty

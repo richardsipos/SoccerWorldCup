@@ -1,5 +1,5 @@
 <x-guest-layout >
-    <h2>Új bejegyzés</h2>
+    <h2>Új csapat létrehozása</h2>
 
     <div class='pb-8'>
         @if ($errors -> any())
@@ -17,21 +17,13 @@
         @endif
     </div>
 
-    <form action="{{ route('games.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('teams.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @csrf
 
-        Otthoni csapat: <br>
-        @foreach($teams as $team)
-            <input type="radio" name="hometeams_id" value={{$team->id}}>{{$team->name}}
-        @endforeach
-        Idegen csapat: <br>
-        @foreach($teams as $team)
-            <input type="radio" name="awayteams_id" value={{$team->id}}>{{$team->name}}
-        @endforeach
+        Csapat név: <input type="text" name="name" value=""><br> <br>
+        Csapat röviditése: <br> <input type="text" name="shortname" value=""><br> <br>
+        Csapat logó (opcionális): <br> Fájl: <input type="file" name="image"><br>
 
-
-        Dátum: <input type="datetime-local" name="start"><br>
 
 
         <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Létrehozás</button>

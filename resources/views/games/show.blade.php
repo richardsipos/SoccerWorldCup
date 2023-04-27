@@ -7,7 +7,7 @@
                         @if (isset($game->homeTeam->img))
                             <img src={{$game->hometeam->img}} alt="">
                         @else
-                            <img src="/images/wcIMG.jpg" alt="">
+                            <img src="/wcIMG.jpg" alt="">
                         @endif
                         <h1>{{$game->homeTeam->name}}</h1>
 
@@ -40,7 +40,7 @@
                         @if (isset($game->awayTeam->img))
                             <img src={{$game->awayTeam->img}} alt="">
                         @else
-                            <img src="/images/wcIMG.jpg" alt="">
+                            <img src="/wcIMG.jpg" alt="">
                         @endif
                         <h1>{{$game->awayTeam->name}}</h1>
                     </div>
@@ -75,7 +75,8 @@
     <div class="mb-px-153">
         <h2>Új event:</h2>
 
-        <form action="{{ route('events.store')}}" method="POST" enctype="multipart/form-data">
+        {{-- <form action="{{ route('addEvent.store',['game' => $game])}}" method="POST" enctype="multipart/form-data"> --}}
+        <form action="{{ route('games.store',['game' => $game])}}" method="POST" enctype="multipart/form-data">
             @csrf
             Hanyadik perc: <input type="text" name="minute" value="0"><br>
             @error('minute')

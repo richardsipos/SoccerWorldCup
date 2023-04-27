@@ -27,4 +27,6 @@ class Player extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+
 }

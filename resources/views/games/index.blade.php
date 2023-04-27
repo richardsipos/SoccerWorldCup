@@ -15,10 +15,11 @@
                     @forelse($ongoingGames as $ongoingGame)
                     <div class="oneGame">
                         <div class="teamLeft">
+                            {{-- Ez egy hulyeseg mert a homeTeam idt add vissza, ezt meg kell old meg. --}}
                             @if (isset($ongoingGame->homeTeam->img))
                                 <img src={{$ongoingGame->hometeam->img}} alt="">
                             @else
-                                <img src="/images/wcIMG.jpg" alt="">
+                                <img src="/wcIMG.jpg" alt="">
                             @endif
                             <h1>{{$ongoingGame->homeTeam->name}}</h1>
                         </div>
@@ -36,7 +37,7 @@
                             @if (isset($ongoingGame->awayTeam->img))
                                 <img src={{$ongoingGame->awayTeam->img}} alt="">
                             @else
-                                <img src="/images/wcIMG.jpg" alt="">
+                                <img src="/wcIMG.jpg" alt="">
                             @endif
                             <h1>{{$ongoingGame->awayTeam->name}}</h1>
                         </div>
@@ -55,7 +56,7 @@
                             @if (isset($team->img))
                                 <img src={{$finishedGame->hometeam->img}} alt="">
                             @else
-                                <img src="/images/wcIMG.jpg" alt="">
+                                <img src="/wcIMG.jpg" alt="">
                             @endif
                             <h1>{{$finishedGame->homeTeam->name}}</h1>
                         </div>
@@ -76,7 +77,7 @@
                             @if (isset($finishedGame->awayTeam->img))
                                 <img src={{$finishedGame->awayTeam->img}} alt="">
                             @else
-                                <img src="/images/wcIMG.jpg" alt="">
+                                <img src="/wcIMG.jpg" alt="">
                             @endif
                             <h1>{{$finishedGame->awayTeam->name}}</h1>
                         </div>

@@ -3,4 +3,4 @@
 
 </svg> --}}
 
-<img src="/images/soccer_ball2.svg" class="h-8 mr-3"/>
+<img src="/soccer_ball2.svg" class="h-8 mr-3"/>

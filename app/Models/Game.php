@@ -65,6 +65,8 @@ class Game extends Model
 
             $gameScores->push([
                 'game_id' => $game->id,
+                'hometeams_id' => $game->hometeams_id,
+                'awayteams_id' => $game->awayteams_id,
                 'away_team_score' => $awayTeamPoints,
                 'home_team_score' => $homeTeamPoints,
             ]);

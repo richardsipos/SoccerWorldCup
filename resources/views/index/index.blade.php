@@ -2,7 +2,7 @@
     <div class="mainPage">
         <div class="container">
             <div class="imgDiv">
-                <img src="/images/soccer_ball2.svg" alt="">
+                <img src="/soccer_ball2.svg" alt="">
             </div>
             <div class="title">
                 <h1>Üdv az oldalon!</h1>
