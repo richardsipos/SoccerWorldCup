@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Player;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -79,9 +80,20 @@ class PlayerController extends Controller
      */
     public function destroy(Player $player)
     {
-        $this -> authorize('delete', Player::class);
+        $events = Event::all();
         $team_id = $player->team_id;
-        $player -> delete();
+        $canDelete = true;
+        foreach($events as $event){
+            if($event->player_id == $player->id){
+                $canDelete=false;
+            }
+        }
+        if($canDelete){
+            $this -> authorize('delete', Player::class);
+            $player -> delete();
+
+        }
+
         return to_route('teams.show',['team' => $team_id]);
     }
 }

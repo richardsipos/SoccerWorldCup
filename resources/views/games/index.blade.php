@@ -2,7 +2,13 @@
     <div class="merkozesekPage">
         <div class="container">
             <div class="adminFunctions">
-                <p>ide kerulnek az admin funkciok, csak az admin lattja ezt.</p>
+
+                <form action="{{ route('games.create')}}" method="GET">
+                    @csrf
+                    <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Mérkőzés létrehotása" />
+                </form>
+
+
             </div>
             @if (Session::get('game-created'))
                 <div class="w-full text-center bg-green-700 mb-4 rounded-md text-white">
@@ -31,6 +37,9 @@
                             <h1>{{$ongoingGame->homeTeam->name}}</h1>
                         </div>
                         <div class="vs">
+                            <h2>Kezdés</h2>
+                            {{$ongoingGame -> start}}<br>
+                            <h2>Állás</h2>
                             @forelse($gameScores as $score)
                                 @if($ongoingGame->id == $score['game_id'])
                                     <p>{{$score['home_team_score']}} vs {{$score['away_team_score']}}</p>
@@ -83,6 +92,9 @@
                         </div>
                         <div class="vs">
 
+                            <h2>Kezdés</h2>
+                            {{$finishedGame -> start}}<br>
+                            <h2>Állás</h2>
                             @forelse($gameScores as $score)
                                 @if($finishedGame->id == $score['game_id'])
                                     {{-- <p>{{$finishedGame->id}}</p> --}}

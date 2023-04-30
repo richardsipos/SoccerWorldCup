@@ -92,8 +92,10 @@ class EventController extends Controller
         // dd($event->game_id); ez jo
         $game = Game::where('id','=',$event->game_id)->get()[0];
         // $events = Event::where ('game_id','=',$game->id)->get();
-        $this -> authorize('delete', Event::class);
-        $event -> delete();
+        if(!$game->finished){
+            $this -> authorize('delete', Event::class);
+            $event -> delete();
+        }
         return to_route('games.show',['game' => $game->id]);
     }
 }

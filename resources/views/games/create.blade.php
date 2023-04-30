@@ -25,7 +25,7 @@
         @foreach($teams as $team)
             <input type="radio" name="hometeams_id" value={{$team->id}}>{{$team->name}}
         @endforeach
-        Idegen csapat: <br>
+        <br>Idegen csapat: <br>
         @foreach($teams as $team)
             <input type="radio" name="awayteams_id" value={{$team->id}}>{{$team->name}}
         @endforeach

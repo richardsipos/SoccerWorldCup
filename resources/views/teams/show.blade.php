@@ -2,14 +2,22 @@
 <x-guest-layout>
     <div class="csapatokPage">
         <div class="container">
+            <div class = "m-3 flex items-center justify-center flex-col">
+                <form action="{{ route('teams.edit',  ['team' => $team ])}}" method="GET">
+                    @csrf
+                    <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Csapat módosítása" />
+                </form>
+            </div>
             <div class="title">
                 Csapat név: {{$team->name}}
+
                 @if ($team -> image !== null)
                     <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
                 @else
                     <img src="/wcIMG.jpg" alt="">
                 @endif
             </div>
+
             <div class="grid grid-cols-3 gap-2">
                 <h1 class='text-5xl'>A csapat játékosai:</h1><br><br>
                 @forelse($playersInfo as $playerInfo)
@@ -53,8 +61,8 @@
             </div>
             <div class="merkozesekPage">
                 <div class="container">
-                    <div class="allGames">
-                        <h1>A csapat mérközései</h1>
+                    <div class="allGames m-3.5">
+                        <h1>A csapat mérkőzései</h1>
 
                             @forelse($games as $game)
                                 @if($game->hometeams_id == $team->id || $game->awayteams_id == $team->id)
@@ -68,6 +76,9 @@
                                             <h1>{{$game->homeTeam->name}}</h1>
                                         </div>
                                         <div class="vs">
+                                            <h2>Kezdés</h2>
+                                            {{$game -> start}}<br>
+                                            <h2>Állás</h2>
                                             @forelse($gameScores as $score)
                                                 @if($game->id == $score['game_id'])
                                                     <p>{{$score['home_team_score']}} vs {{$score['away_team_score']}}</p>
@@ -99,7 +110,7 @@
     </div>
 
 
-    <div class="mb-px-153 my-44">
+    <div class="mb-px-153 h-screen flex items-center justify-center flex-col">
         <h2>Új játékos:</h2>
 
         <div class='pb-8'>

@@ -2,8 +2,12 @@
 
 {{-- @section('content') --}}
 <x-guest-layout>
-    <div class="csapatokPage">
-        <div class="container">
+    <div class="csapatokPage m-3.5">
+        <form action="{{ route('teams.create')}}" method="GET">
+            @csrf
+            <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Csapat létrehotása" />
+        </form>
+        <div class="container m-1.5">
             <div class="title">
                 Csapatok
             </div>

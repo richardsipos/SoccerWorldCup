@@ -1,4 +1,5 @@
 <footer class="row w-full
+    {{-- mt-128 --}}
     fixed bottom-0
     flex justify-center items-center">
     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">

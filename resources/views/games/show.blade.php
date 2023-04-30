@@ -24,6 +24,9 @@
                     </div>
                     <div class="vs">
                         <br><br><br><br>
+                        <h2>Kezdés</h2>
+                        {{$game -> start}}<br>
+                        <h2>Állás</h2>
                         @forelse($gameScores as $score)
                             @if($game->id == $score['game_id'])
                                 <p>{{$score['home_team_score']}} vs {{$score['away_team_score']}}</p>
@@ -32,12 +35,16 @@
                         @empty
                         @endforelse
                         <br><br><br><br><br><br>
+                        <form action="{{ route('games.edit',  ['game' => $game ])}}" method="GET">
+                            @csrf
+                            <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Mérkőzés módosítása" />
+                        </form>
 
                         @forelse($eventsBothTeams as $eventHomeTeam)
                             @foreach($events as $event)
                                 @if($event->id == $eventHomeTeam['id'])
                                     @if ($eventHomeTeam['homeTeam'])
-                                        <p>{{$eventHomeTeam['minute']." perc: ".$eventHomeTeam['team']." csapat ".$eventHomeTeam['type']." ". $eventHomeTeam['playerName'] }} ____</p>
+                                        <p>{{$eventHomeTeam['minute']." perc: ".$eventHomeTeam['team']." csapat ".$eventHomeTeam['type']." ". $eventHomeTeam['playerName'] }} _____________________________________________</p>
 
                                         @can('delete', $event)
                                             <form action="{{ route('events.destroy', ['event' => $event ])}}" method="POST">
@@ -48,7 +55,7 @@
                                             </form>
                                         @endcan
                                     @elseif (!$eventHomeTeam['homeTeam'])
-                                        <p>____{{$eventHomeTeam['minute']." perc: ".$eventHomeTeam['team']." csapat ".$eventHomeTeam['type']." ". $eventHomeTeam['playerName'] }} </p>
+                                        <p>________________________________________________{{$eventHomeTeam['minute']." perc: ".$eventHomeTeam['team']." csapat ".$eventHomeTeam['type']." ". $eventHomeTeam['playerName'] }} </p>
 
                                         @can('delete', $event)
                                             <form action="{{ route('events.destroy', ['event' => $event,'game_id' => $game->id ])}}" method="POST">
@@ -110,12 +117,12 @@
             </ul>
         @endif
     </div>
-    <div class="mb-px-153">
+    <div class="mb-px-153 h-screen flex items-center justify-center flex-col">
         @if($game->finished==true)
 
         @else
 
-            <h2>Új event:</h2>
+            <p class="text-4xl">Új esemény létrehozása:</p>
 
             {{-- <form action="{{ route('addEvent.store',['game' => $game])}}" method="POST" enctype="multipart/form-data"> --}}
             <form action="{{ route('events.store')}}" method="POST">
