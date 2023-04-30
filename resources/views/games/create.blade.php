@@ -37,3 +37,4 @@
         <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Létrehozás</button>
     </form>
 </x-guest-layout>
+

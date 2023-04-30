@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id(); //->references('player_id')
 
             //foreign key to player
-            $table->foreignId('player_id')->constrained();//->nullable();
+            $table->foreignId('player_id')->constrained()->onDelete('cascade');//->nullable();
             $table->foreignId('game_id')->constrained();//->nullable();
 
             $table->enum('type',['gól','öngól', 'sárga lap', 'piros lap']);

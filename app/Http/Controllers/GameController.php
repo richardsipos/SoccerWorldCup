@@ -25,20 +25,19 @@ class GameController extends Controller
 
         $ongoingGames = Game:: where ('finished','=',false ) -> orderByDesc('start') ->get();
         $finishedGames = Game:: where ('finished','=',true ) -> orderByDesc('start') -> paginate(5);
-        //$teams = Team::all();
-        //$events = Event::all();
-        //$ongoingGames = $allGames -> ongoingGames()->sortByDesc('start');
+        $teams = Team::all();
+
 
         $event = new Event;
-        // $gamesEvents = $event->gamesEvents();
+
 
         $gameScores = Game::gameScores();
 
         // dd($gameScores);
         return view('games.index', [
             'finishedGames' => $finishedGames,'ongoingGames' => $ongoingGames,
-            'gameScores' => $gameScores
-            // 'gamesEvents' => $gamesEvents //,'teams' => $teams, 'events' => $events
+            'gameScores' => $gameScores,
+            'teams' => $teams
         ]);
 
     }
@@ -83,16 +82,17 @@ class GameController extends Controller
     {
         $events = Event::where ('game_id','=',$game->id)->get();
         $gameScores = Game::gameScores();
-        // dd($events);
-        $eventsBothTeams = Game::eventsHomeAndAwayTeam($game);
-        //dd($eventsHomeTeam);
 
+        $eventsBothTeams = Game::eventsHomeAndAwayTeam($game);
+        $teams = Team::all();
         $players = Player::all();
         return view('games.show', [
             'game' => $game,
             'gameScores' => $gameScores,
             'eventsBothTeams' => $eventsBothTeams,
-            'players' => $players
+            'players' => $players,
+            'events' =>  $events,
+            'teams' => $teams
             // 'eventsAwayTeam' => $eventsAwayTeam
         ]);
     }

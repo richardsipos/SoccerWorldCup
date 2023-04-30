@@ -79,7 +79,8 @@ class TeamController extends Controller
             'playersInfo' => $playersInfo,
             'team' => $team,
             'gameScores' => $gameScores,
-            'games'=>$games
+            'games'=>$games,
+            'players'=>$players
         ]);
     }
 

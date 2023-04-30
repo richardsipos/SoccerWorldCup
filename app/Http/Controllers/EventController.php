@@ -37,29 +37,27 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Game $game)
+    public function store(Request $request)
     {
 
-        dd($game);
         $this -> authorize('create', Event::class);
 
         //itt a baj, bele kell irjam a gameId-t...de hogyan?
         $validated = $request -> validate(
             ['minute' => 'required|integer|min:0|max:90',
-            'type' => 'required|string',
+            'type' => 'required|string|in:öngól,gól,piros lap,sárga lap',
             'player_id' => 'integer|exists:players,id',
+            'game_id' => 'required|exists:games,id'
         ]);
-
-        $validated['game_id']=$game->id;
 
         $event = Event::create($validated);
         // $event -> categories() -> sync($validated['players'] ?? []);
 
 
-        
+
 
         Session::flash('event-created');
-        return to_route('games.index');
+        return to_route('games.show',['game' => $validated['game_id']]);
     }
 
     /**
@@ -91,6 +89,11 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        // dd($event->game_id); ez jo
+        $game = Game::where('id','=',$event->game_id)->get()[0];
+        // $events = Event::where ('game_id','=',$game->id)->get();
+        $this -> authorize('delete', Event::class);
+        $event -> delete();
+        return to_route('games.show',['game' => $game->id]);
     }
 }

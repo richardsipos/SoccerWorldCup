@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Player;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+
 class PlayerController extends Controller
 {
     /**
@@ -20,7 +24,9 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+        $this -> authorize('create', Player::class);
+        $teams = Team::all();
+        return view('teams.index', ['teams' => $teams]);
     }
 
     /**
@@ -28,7 +34,20 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this -> authorize('create', Player::class);
+
+        $validated = $request -> validate(
+            ['name' => 'required|string',
+            'number' => 'required|integer',
+            'birthdate' => 'required|date|before:today',
+            'team_id' => 'required|exists:teams,id'
+        ]);
+
+        $player = Player::create($validated);
+
+
+        Session::flash('player-created');
+        return to_route('teams.show',['team' => $validated['team_id']]);
     }
 
     /**
@@ -60,6 +79,9 @@ class PlayerController extends Controller
      */
     public function destroy(Player $player)
     {
-        //
+        $this -> authorize('delete', Player::class);
+        $team_id = $player->team_id;
+        $player -> delete();
+        return to_route('teams.show',['team' => $team_id]);
     }
 }

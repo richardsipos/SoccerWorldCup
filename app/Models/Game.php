@@ -100,7 +100,8 @@ class Game extends Model
                     'team' =>$game->homeTeam->name,
                     'type' => $event->type,
                     'minute' => $event->minute,
-                    'homeTeam' => true
+                    'homeTeam' => true,
+                    'id'=> $event->id
                 ]);
             }
             else if($awayTeamPlayers->contains('id',$event->player_id)){
@@ -113,7 +114,8 @@ class Game extends Model
                     'team' =>$game->awayTeam->name,
                     'type' => $event->type,
                     'minute' => $event->minute,
-                    'homeTeam' => false
+                    'homeTeam' => false,
+                    'id'=> $event->id
                 ]);
             }
         }

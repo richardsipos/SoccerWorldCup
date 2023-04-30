@@ -4,8 +4,8 @@
         <div class="container">
             <div class="title">
                 Csapat név: {{$team->name}}
-                @if (isset($team->img))
-                    <img src={{$team->img}} alt="">
+                @if ($team -> image !== null)
+                    <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
                 @else
                     <img src="/wcIMG.jpg" alt="">
                 @endif
@@ -27,6 +27,24 @@
                         öngólok
                         {{$playerInfo['ongolok']}}
 
+                        {{$playerToSend = null}}
+                        @foreach ( $players as $player )
+                            @if ( $player->name == $playerInfo['player_name'])
+                                {{$playerToSend = $player}}
+
+                            @endif
+
+                        @endforeach
+
+                        <button>
+                            @can('delete', $player)
+                                <form action="{{ route('players.destroy', ['player' => $playerToSend])}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Törlés</button>
+                                </form>
+                            @endcan
+                        </button>
 
                     </div>
 
@@ -78,5 +96,39 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div class="mb-px-153 my-44">
+        <h2>Új játékos:</h2>
+
+        <div class='pb-8'>
+            @if ($errors -> any())
+                <div>
+                    Something went wrong
+                </div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>
+                            {{$error}}
+                        </li>
+
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+        <form action="{{ route('players.store')}}" method="POST">
+            @csrf
+            Játékos neve: <input type="text" name="name" value=""><br>
+
+            Játékos mezszáma<input  type="text" name="number" ><br>
+
+            Születési dátum: <input type="datetime-local" name="birthdate"><br>
+
+            <input  type="hidden" name="team_id" value="{{$team->id}}">
+
+
+            <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Mentés</button>
+        </form>
     </div>
 </x-guest-layout>

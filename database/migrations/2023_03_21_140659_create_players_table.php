@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             //foreign key
-            $table->foreignId('team_id')->constrained()->nullable();//;
+            $table->foreignId('team_id')->constrained()->nullable()->onDelete('cascade');//;
 
             $table->string('name');
             $table->integer('number');//mezszam

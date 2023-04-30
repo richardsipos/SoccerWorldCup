@@ -16,11 +16,18 @@
                     <div class="oneGame">
                         <div class="teamLeft">
                             {{-- Ez egy hulyeseg mert a homeTeam idt add vissza, ezt meg kell old meg. --}}
-                            @if (isset($ongoingGame->homeTeam->img))
-                                <img src={{$ongoingGame->hometeam->img}} alt="">
-                            @else
+                            {{$imageFound = false;}}
+                            @foreach ($teams as $team)
+                                    @if ($team -> image !== null && $team->id == $ongoingGame->homeTeam->id)
+                                        <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
+                                        {{$imageFound = true;}}
+                                    @endif
+
+                            @endforeach
+                            @if (!$imageFound)
                                 <img src="/wcIMG.jpg" alt="">
                             @endif
+
                             <h1>{{$ongoingGame->homeTeam->name}}</h1>
                         </div>
                         <div class="vs">
@@ -34,11 +41,18 @@
                             <a href="{{ route('games.show', ['game' => $ongoingGame] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Mérkőzésrészletezés </a>
                         </div>
                         <div class="teamRight">
-                            @if (isset($ongoingGame->awayTeam->img))
-                                <img src={{$ongoingGame->awayTeam->img}} alt="">
-                            @else
+                            {{$imageFound = false;}}
+                            @foreach ($teams as $team)
+                                    @if ($team -> image !== null && $team->id == $ongoingGame->awayTeam->id)
+                                        <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
+                                        {{$imageFound = true;}}
+                                    @endif
+
+                            @endforeach
+                            @if (!$imageFound)
                                 <img src="/wcIMG.jpg" alt="">
                             @endif
+
                             <h1>{{$ongoingGame->awayTeam->name}}</h1>
                         </div>
                     </div>
@@ -53,11 +67,18 @@
                     <div class="oneGame">
 
                         <div class="teamLeft">
-                            @if (isset($team->img))
-                                <img src={{$finishedGame->hometeam->img}} alt="">
-                            @else
+                            {{$imageFound = false;}}
+                            @foreach ($teams as $team)
+                                    @if ($team -> image !== null && $team->id == $finishedGame->hometeam->id)
+                                        <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
+                                        {{$imageFound = true;}}
+                                    @endif
+
+                            @endforeach
+                            @if (!$imageFound)
                                 <img src="/wcIMG.jpg" alt="">
                             @endif
+
                             <h1>{{$finishedGame->homeTeam->name}}</h1>
                         </div>
                         <div class="vs">
@@ -74,9 +95,15 @@
                             <a href="{{ route('games.show', ['game' => $finishedGame] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Mérkőzésrészletezés </a>
                         </div>
                         <div class="teamRight">
-                            @if (isset($finishedGame->awayTeam->img))
-                                <img src={{$finishedGame->awayTeam->img}} alt="">
-                            @else
+                            {{$imageFound = false;}}
+                            @foreach ($teams as $team)
+                                    @if ($team -> image !== null && $team->id == $finishedGame->awayTeam->id)
+                                        <img src="{{ Storage::url('images/'.$team -> image) }}" alt="">
+                                        {{$imageFound = true;}}
+                                    @endif
+
+                            @endforeach
+                            @if (!$imageFound)
                                 <img src="/wcIMG.jpg" alt="">
                             @endif
                             <h1>{{$finishedGame->awayTeam->name}}</h1>
