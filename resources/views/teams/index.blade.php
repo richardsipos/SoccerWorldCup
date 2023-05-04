@@ -3,10 +3,16 @@
 {{-- @section('content') --}}
 <x-guest-layout>
     <div class="csapatokPage m-3.5">
-        <form action="{{ route('teams.create')}}" method="GET">
-            @csrf
-            <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Csapat létrehotása" />
-        </form>
+        @auth
+            @if(Auth::user()->is_admin)
+                <form action="{{ route('teams.create')}}" method="GET">
+                    @csrf
+                    <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Csapat létrehotása" />
+                </form>
+
+            @endif
+
+        @endauth
         <div class="container m-1.5">
             <div class="title">
                 Csapatok
@@ -24,7 +30,7 @@
                         @endif
                         <h1>{{$team->name}}</h1>
                         <h2>{{$team->shortname}}
-                            <a href="{{ route('teams.show', ['team' => $team] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Csapatrészletezés</a>
+                            <a href="{{ route('teams.show', ['team' => $team] ) }}" class="p-2 block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Csapatrészletezés</a>
                     </div>
 
                 @empty
@@ -33,9 +39,5 @@
         </div>
     </div>
 </x-guest-layout>
-    {{-- <a href="{{ route('posts.show', ['post' => $p] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Elolvasom</a> --}}
-    {{-- {{ $teams -> links() }} --}}
-{{-- @endsection --}}
-
 
 

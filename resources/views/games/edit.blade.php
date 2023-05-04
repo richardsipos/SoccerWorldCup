@@ -47,6 +47,6 @@
         Dátum: <input type="date" name="date" value="{{ old('date', $post -> date) }}"><br> --}}
 
 
-        <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Mentés</button>
+        <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Mentés</button>
     </form>
     </x-guest-layout>

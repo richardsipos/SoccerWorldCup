@@ -31,10 +31,10 @@
         @endforeach
 
 
-        Dátum: <input type="datetime-local" name="start"><br>
+        <br>Dátum: <input type="datetime-local" name="start"><br>
 
 
-        <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Létrehozás</button>
+        <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Létrehozás</button>
     </form>
 </x-guest-layout>
 

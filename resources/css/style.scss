@@ -18,7 +18,7 @@ nav{
 
 footer{
     background-color: #60B922;
-    margin-top:150px;
+    margin-top:1%;
 
     span{
         color:white;
@@ -36,7 +36,6 @@ footer{
 /* Body Customization */
 body{
     min-height: 100vh;
-    // background-color: antiquewhite;
     background-color: white;
 
     .mainPage{
@@ -79,6 +78,7 @@ body{
         display: flex;
         align-items: center;
         flex-direction: column;
+        margin-bottom: 8%;
         .container{
 
             .title{
@@ -97,6 +97,7 @@ body{
     }
 
     .merkozesekPage{
+
         display: flex;
         justify-content: center;
         margin-bottom: 60px;
@@ -119,7 +120,7 @@ body{
                 }
                 display: flex;
                 flex-direction: column;
-                border: 1px solid #60B922;
+                // border: 1px solid #60B922;
                 padding-top: 20px;
                 padding-bottom: 20px;
                 padding: 20px;
@@ -132,9 +133,8 @@ body{
 
 
 
-                    border: 2px solid gray;
+                    border: 2px solid black;
 
-                    // border-radius: 10px;
                     font-size: 1rem;
                     display: flex;
                     justify-content: center;
@@ -148,7 +148,6 @@ body{
 
                     .teamLeft{
                         padding: 20px;
-                        //background-color: #60B922;
                         h1{
                             color:black;
                             font-size: 1.5rem;
@@ -161,7 +160,6 @@ body{
 
                     .teamRight{
                         padding: 20px;
-                        //background-color: #60B922;
                         h1{
                             color:black;
                             font-size: 1.5rem;

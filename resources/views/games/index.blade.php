@@ -1,12 +1,15 @@
 <x-guest-layout>
     <div class="merkozesekPage">
         <div class="container">
-            <div class="adminFunctions">
-
-                <form action="{{ route('games.create')}}" method="GET">
-                    @csrf
-                    <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Mérkőzés létrehotása" />
-                </form>
+            <div class="">
+                @auth
+                    @if(Auth::user()->is_admin)
+                        <form action="{{ route('games.create')}}" method="GET">
+                            @csrf
+                            <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Mérkőzés létrehotása" />
+                        </form>
+                    @endif
+                @endauth
 
 
             </div>
@@ -47,7 +50,7 @@
                                 @endif
                             @empty
                             @endforelse
-                            <a href="{{ route('games.show', ['game' => $ongoingGame] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Mérkőzésrészletezés </a>
+                            <a href="{{ route('games.show', ['game' => $ongoingGame] ) }}" class="p-2 block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Mérkőzésrészletezés </a>
                         </div>
                         <div class="teamRight">
                             {{$imageFound = false;}}
@@ -104,7 +107,7 @@
                             @empty
                             @endforelse
                             {{-- <a href="{{ route('posts.show', ['post' => $p] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Mérkőzésrészletezés </a> --}}
-                            <a href="{{ route('games.show', ['game' => $finishedGame] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Mérkőzésrészletezés </a>
+                            <a href="{{ route('games.show', ['game' => $finishedGame] ) }}" class="p-2 block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Mérkőzésrészletezés </a>
                         </div>
                         <div class="teamRight">
                             {{$imageFound = false;}}

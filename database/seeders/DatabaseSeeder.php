@@ -12,6 +12,7 @@ use \App\Models\Game;
 use \App\Models\Player;
 use \App\Models\Team;
 use \App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class DatabaseSeeder extends Seeder
@@ -32,8 +33,8 @@ class DatabaseSeeder extends Seeder
         $users = collect();
 
         $users-> add(User::factory()->create([
-            'email' => 'user' . 0 . '@szerveroldali.hu',
-            // 'password' => 'adminpwd',
+            'email' => 'admin@szerveroldali.hu',
+            'password' => Hash::make('adminpwd'),
             'is_admin'=> true
         ]));
 
@@ -82,18 +83,28 @@ class DatabaseSeeder extends Seeder
 
                 $events = collect();
 
+                $randomNumber = random_int(4, 10);
+                $playersInHomeTeam = $playersInHomeTeam->random($randomNumber);
                 foreach ($playersInHomeTeam as $index => $player) {
-                    $events->add(Event::factory()->create([
-                        'player_id' => $player->id,
-                        'game_id' =>$games[$i]
-                    ]));
+                    $randomNumEvents = random_int(1, 3);
+                    for($loopCounter=0; $loopCounter<=$randomNumEvents;$loopCounter++){
+                        $events->add(Event::factory()->create([
+                            'player_id' => $player->id,
+                            'game_id' =>$games[$i]
+                        ]));
+                    }
                 }
-
+                $randomNumber = random_int(4, 10);
+                $playersInAwayTeam = $playersInAwayTeam->random($randomNumber);
                 foreach ($playersInAwayTeam as $index => $player) {
-                    $events->add(Event::factory()->create([
-                        'player_id' => $player->id,
-                        'game_id' =>$games[$i]
-                    ]));
+                    $randomNumEvents = random_int(1, 3);
+                    for($loopCounter=0; $loopCounter<=$randomNumEvents;$loopCounter++){
+                        $events->add(Event::factory()->create([
+                            'player_id' => $player->id,
+                            'game_id' =>$games[$i]
+                        ]));
+                    }
+
                     //$this->command->info($playersInHomeTeam);
                 }
 

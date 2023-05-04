@@ -35,10 +35,14 @@
                         @empty
                         @endforelse
                         <br><br><br><br><br><br>
-                        <form action="{{ route('games.edit',  ['game' => $game ])}}" method="GET">
-                            @csrf
-                            <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Mérkőzés módosítása" />
-                        </form>
+                        @auth
+                            @if(Auth::user()->is_admin)
+                                <form action="{{ route('games.edit',  ['game' => $game ])}}" method="GET">
+                                    @csrf
+                                    <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Mérkőzés módosítása" />
+                                </form>
+                            @endif
+                        @endauth
 
                         @forelse($eventsBothTeams as $eventHomeTeam)
                             @foreach($events as $event)
@@ -51,7 +55,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="game_id" value="{{$game->id}}" >
-                                                <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Törlés</button>
+                                                <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Törlés</button>
                                             </form>
                                         @endcan
                                     @elseif (!$eventHomeTeam['homeTeam'])
@@ -62,7 +66,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="game_id" value="{{$game->id}}" >
-                                                <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Törlés</button>
+                                                <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Törlés</button>
                                             </form>
                                         @endcan
                                     @endif
@@ -94,7 +98,7 @@
                             <form action="{{ route('games.destroy', ['game' => $game ])}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Törlés</button>
+                                <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Törlés</button>
                             </form>
                         @endcan
                     </button>
@@ -117,46 +121,50 @@
             </ul>
         @endif
     </div>
-    <div class="mb-px-153 h-screen flex items-center justify-center flex-col">
-        @if($game->finished==true)
+    @auth
+        @if(Auth::user()->is_admin)
+            <div class="mb-px-153 h-screen flex items-center justify-center flex-col">
+                @if($game->finished==true)
 
-        @else
+                @else
 
-            <p class="text-4xl">Új esemény létrehozása:</p>
+                    <p class="text-4xl">Új esemény létrehozása:</p>
 
-            {{-- <form action="{{ route('addEvent.store',['game' => $game])}}" method="POST" enctype="multipart/form-data"> --}}
-            <form action="{{ route('events.store')}}" method="POST">
-                @csrf
-                Hanyadik perc: <input type="text" name="minute" value="0"><br>
-                @error('minute')
-                    {{ $message }}<br>
-                @enderror
+                    {{-- <form action="{{ route('addEvent.store',['game' => $game])}}" method="POST" enctype="multipart/form-data"> --}}
+                    <form action="{{ route('events.store')}}" method="POST">
+                        @csrf
+                        Hanyadik perc: <input type="text" name="minute" value="0"><br>
+                        @error('minute')
+                            {{ $message }}<br>
+                        @enderror
 
-                Tipus (gól, öngól, sárga lap, piros lap):<br>
-                <input  type="text" name="type" ><br>
-                @error('type')
-                    {{ $message }}<br>
-                @enderror
+                        Tipus (gól, öngól, sárga lap, piros lap):<br>
+                        <input  type="text" name="type" ><br>
+                        @error('type')
+                            {{ $message }}<br>
+                        @enderror
 
-                <h2>Játékosok:</h2>
-                <h4>Otthoni csapat játékosai:</h4>
-                @foreach($players as $player)
-                    @if ($player->team_id == $game->hometeams_id)
-                        <input  type="radio" name="player_id" value="{{ $player -> id }}"> {{$player-> name}}
-                    @endif
-                @endforeach
-                <h4>Idegen csapat játékosai:</h4>
-                @foreach($players as $player)
-                    @if ($player->team_id == $game->awayteams_id)
-                        <input  type="radio" name="player_id" value="{{ $player -> id }}"> {{$player-> name}}
-                    @endif
-                @endforeach
-                <input  type="hidden" name="game_id" value="{{$game->id}}">
+                        <h2>Játékosok:</h2>
+                        <h4>Otthoni csapat játékosai:</h4>
+                        @foreach($players as $player)
+                            @if ($player->team_id == $game->hometeams_id)
+                                <input  type="radio" name="player_id" value="{{ $player -> id }}"> {{$player-> name}}
+                            @endif
+                        @endforeach
+                        <h4>Idegen csapat játékosai:</h4>
+                        @foreach($players as $player)
+                            @if ($player->team_id == $game->awayteams_id)
+                                <input  type="radio" name="player_id" value="{{ $player -> id }}"> {{$player-> name}}
+                            @endif
+                        @endforeach
+                        <input  type="hidden" name="game_id" value="{{$game->id}}">
 
 
 
-                <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Mentés</button>
-            </form>
+                        <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Mentés</button>
+                    </form>
+                @endif
+            </div>
         @endif
-    </div>
+    @endauth
 </x-guest-layout>

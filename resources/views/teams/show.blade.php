@@ -3,10 +3,14 @@
     <div class="csapatokPage">
         <div class="container">
             <div class = "m-3 flex items-center justify-center flex-col">
-                <form action="{{ route('teams.edit',  ['team' => $team ])}}" method="GET">
-                    @csrf
-                    <input class="bg-[#60B922] text-white p-2 inline-block" type="submit" value="Csapat módosítása" />
-                </form>
+                @auth
+                    @if(Auth::user()->is_admin)
+                        <form action="{{ route('teams.edit',  ['team' => $team ])}}" method="GET">
+                            @csrf
+                            <input class="bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922] p-2 inline-block" type="submit" value="Csapat módosítása" />
+                        </form>
+                    @endif
+                @endauth
             </div>
             <div class="title">
                 Csapat név: {{$team->name}}
@@ -49,7 +53,7 @@
                                 <form action="{{ route('players.destroy', ['player' => $playerToSend])}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Törlés</button>
+                                    <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Törlés</button>
                                 </form>
                             @endcan
                         </button>
@@ -86,7 +90,7 @@
                                                 @endif
                                             @empty
                                             @endforelse
-                                            <a href="{{ route('games.show', ['game' => $game] ) }}" class="p-2 block bg-sky-900 hover:bg-sky-700 text-white">Mérkőzésrészletezés </a>
+                                            <a href="{{ route('games.show', ['game' => $game] ) }}" class="p-2 block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Mérkőzésrészletezés </a>
                                         </div>
                                         <div class="teamRight">
                                             @if (isset($game->awayTeam->img))
@@ -111,35 +115,39 @@
 
 
     <div class="mb-px-153 h-screen flex items-center justify-center flex-col">
-        <h2>Új játékos:</h2>
+        @auth
+            @if(Auth::user()->is_admin)
+                <h2>Új játékos:</h2>
 
-        <div class='pb-8'>
-            @if ($errors -> any())
-                <div>
-                    Something went wrong
+                <div class='pb-8'>
+                    @if ($errors -> any())
+                        <div>
+                            Something went wrong
+                        </div>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>
+                                    {{$error}}
+                                </li>
+
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>
-                            {{$error}}
-                        </li>
+                <form action="{{ route('players.store')}}" method="POST">
+                    @csrf
+                    Játékos neve: <input type="text" name="name" value=""><br>
 
-                    @endforeach
-                </ul>
-            @endif
-        </div>
-        <form action="{{ route('players.store')}}" method="POST">
-            @csrf
-            Játékos neve: <input type="text" name="name" value=""><br>
+                    Játékos mezszáma<input  type="text" name="number" ><br>
 
-            Játékos mezszáma<input  type="text" name="number" ><br>
+                    Születési dátum: <input type="datetime-local" name="birthdate"><br>
 
-            Születési dátum: <input type="datetime-local" name="birthdate"><br>
-
-            <input  type="hidden" name="team_id" value="{{$team->id}}">
+                    <input  type="hidden" name="team_id" value="{{$team->id}}">
 
 
-            <button type="submit" class="p-2 inline-block bg-sky-900 hover:bg-sky-700 text-white">Mentés</button>
-        </form>
-    </div>
+                    <button type="submit" class="p-2 inline-block bg-[#60B922] hover:bg-[#fcfcfc] text-white hover:text-[#60B922] border  hover:border-[#60B922]">Mentés</button>
+                </form>
+            </div>
+        @endif
+    @endauth
 </x-guest-layout>

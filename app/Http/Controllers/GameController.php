@@ -132,8 +132,13 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        $this -> authorize('delete', Game::class);
-        $game -> delete();
+        $events = Event::where('game_id','=',$game->id)->get();
+        if(!count($events)){
+            $this -> authorize('delete', Game::class);
+            $game -> delete();
+        }
+
+
         return to_route('games.index');
     }
 }

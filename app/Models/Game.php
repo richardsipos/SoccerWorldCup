@@ -123,6 +123,105 @@ class Game extends Model
         return $bothTeamEvents;
     }
 
+    public static function leaderBoard(){
+
+        // $gameScore = gameScores();
+        $leaderboard = new Collection();
+        $teams = Team::all();
+        foreach ($teams as $team){
+            $leaderboard -> push([
+                'id' => $team->id,
+                'name' => $team->name,
+                'shortname' => $team->shortname,
+                'score' => 0,
+                'goalsScored' => 0,
+                'goalsGot' => 0
+            ]);
+        }
+
+        $events = Event::all();
+        $games = Game::where('finished','=',true)->get();
+
+
+
+        foreach ($games as $game) {
+            $gameEvents = Game::eventsHomeAndAwayTeam($game);
+            // dd($gameEvents);
+            $homeTeamScore = 0;
+            $awayTeamScore = 0;
+            foreach ($gameEvents as $gameEvent) {
+
+
+                if($gameEvent['type']== 'öngól'){
+
+                    if($gameEvent['homeTeam']){
+                        $awayTeamScore = $awayTeamScore + 1 ;
+                    }else{
+                        $homeTeamScore = $homeTeamScore + 1 ;
+                    }
+
+                    $leaderboard = $leaderboard->map(function($item) use ($gameEvent){
+                        if($item['name'] == $gameEvent['team']){
+                            $item['goalsGot'] +=1;
+                        }
+                        return $item;
+                    });
+                }else if($gameEvent['type']== 'gól'){
+
+                    if($gameEvent['homeTeam']){
+                        $homeTeamScore = $homeTeamScore + 1 ;
+
+                    }else{
+                        $awayTeamScore = $awayTeamScore + 1 ;
+                    }
+
+                    $leaderboard = $leaderboard->map(function($item) use ($gameEvent){
+                        if($item['name'] == $gameEvent['team']){
+                            $item['goalsScored'] +=1;
+                        }
+                        return $item;
+                    });
+                }
+
+
+            }
+            if($homeTeamScore > $awayTeamScore){
+                $leaderboard = $leaderboard->map(function($item) use ($game){
+                    if($item['id'] == $game['hometeams_id']){
+                        $item['score'] +=3;
+                    }
+                    return $item;
+                });
+            }else if($homeTeamScore < $awayTeamScore){
+                $leaderboard = $leaderboard->map(function($item) use ($game){
+                    if($item['id'] == $game['awayteams_id']){
+                        $item['score'] +=3;
+                    }
+                    return $item;
+                });
+            }else if($homeTeamScore == $awayTeamScore){
+                $leaderboard = $leaderboard->map(function($item) use ($game){
+                    if($item['id'] == $game['awayteams_id']){
+                        $item['score'] +=1;
+                    }else if($item['id'] == $game['hometeams_id']){
+                        $item['score'] +=1;
+                    }
+                    return $item;
+                });
+            }
+        }
+        // dd($leaderboard);
+
+
+        $leaderboard = $leaderboard->sortByDesc(function($item) {
+
+            return $item['goalsScored'] - $item['goalsGot'];
+
+
+        })->sortByDesc('score');
+
+        return $leaderboard;
+    }
 
 
 }

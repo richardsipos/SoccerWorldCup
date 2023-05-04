@@ -25,6 +25,9 @@
                     <x-nav-link class="text-white" :href="route('teams.index')" :active="request()->routeIs('teams.index')">
                         {{ __('Csapatok') }}
                     </x-nav-link>
+                    <x-nav-link class="text-white" :href="route('leaderboards.index')" :active="request()->routeIs('leaderboards.index')">
+                        {{ __('Tabella') }}
+                    </x-nav-link>
                     @guest
                         <x-nav-link class="text-white" :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
